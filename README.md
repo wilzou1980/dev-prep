@@ -37,15 +37,16 @@
 
 ## 本地启动
 
-### 方式一：直接跑 backend（只需 JDK 17 + Maven）
+### 方式一：打包后运行 jar（本机推荐，只需 JDK 17 + Maven）
 
 ```bash
-# 本机 Maven Central 慢时可用 -s backend/mvn-settings.xml（阿里云镜像，本地文件未入库）
-mvn -f backend/pom.xml spring-boot:run
-# 或先打包再运行
-mvn -f backend/pom.xml clean package
+# 本机 Maven Central 慢，统一用 -s 指定阿里云镜像（backend/mvn-settings.xml 为本地文件，未入库）
+mvn -s backend/mvn-settings.xml -f backend/pom.xml -DskipTests clean package
 java -jar backend/target/project-0.0.1-SNAPSHOT.jar
+# 看到 "Started ProjectApplication" 即启动成功
 ```
+
+> 为什么推荐 `java -jar`：本机工作区路径含中文（`D:\AI文档\软件开发`），`mvn spring-boot:run` 在 fork 的 JVM 里传递 classpath 时因控制台编码（GBK）报 `ClassNotFoundException: com.company.project.ProjectApplication`；`java -jar` 已实测正常。把仓库克隆到纯英文路径后 `spring-boot:run` 也能用。
 
 启动后访问 <http://localhost:8080/api/v1/hello>。
 
@@ -66,7 +67,7 @@ docker compose logs -f app  # 查看应用日志
 | 编译 | `mvn -f backend/pom.xml -DskipTests compile` |
 | 测试 | `mvn -f backend/pom.xml test` |
 | 打包 | `mvn -f backend/pom.xml clean package -DskipTests` |
-| 本地起服务 | `mvn -f backend/pom.xml spring-boot:run` |
+| 本地起服务 | `mvn -s backend/mvn-settings.xml -f backend/pom.xml -DskipTests clean package && java -jar backend/target/project-0.0.1-SNAPSHOT.jar` |
 | 容器日志 | `docker compose logs -f app` |
 | 停止容器 | `docker compose down` |
 
