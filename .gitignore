@@ -1,4 +1,5 @@
 # Java / Maven
+backend/mvn-settings.xml  # 本地镜像加速配置，非项目文件
 target/
 .m2/
 *.class
