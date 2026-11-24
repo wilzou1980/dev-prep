@@ -1,27 +1,30 @@
-# 会话产物与安装缓存（非代码，绝不入库）
-sessions/
-
 # Java / Maven
 target/
 .m2/
 *.class
+*.jar
+!**/src/main/**/lib/*.jar
 
 # Node / 前端
 node_modules/
 dist/
 .vite/
 
-# 环境与密钥
+# 环境与密钥（绝不入库）
 .env
 .env.*
 !.env.example
 *.pem
 *.key
 
-# IDE / 系统
+# IDE
 .idea/
 *.iml
 .vscode/
+
+# 日志与系统
 *.log
 .DS_Store
 Thumbs.db
+# 会话产物与安装缓存（非代码，绝不入库）
+sessions/
