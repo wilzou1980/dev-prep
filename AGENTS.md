@@ -6,7 +6,7 @@
 - 类型：企业内部业务系统；约 200 名使用人员，峰值并发约 30。
 - 技术栈：Java 17 + Spring Boot 3.x + Maven + PostgreSQL 15 + Redis 7 + Docker Compose。
 - 架构：单体应用、按业务模块分包；不引入微服务、Kubernetes、分库分表。
-- 环境：dev（开发/测试）、prod（生产）；内网 GitLab 单仓 monorepo。
+- 环境：dev（开发/测试）、prod（生产）；GitHub 单仓 monorepo（wilzou1980/dev-prep）。
 
 ## 2. 仓库结构
 ```
@@ -18,7 +18,7 @@ project-name/
 ├─ frontend/                 # Vue3 前端（如有）
 ├─ deploy/                   # Nginx 配置、部署脚本
 ├─ docs/                     # 设计文档、部署手册
-├─ .gitlab-ci.yml            # CI/CD 流水线
+├─ .github/workflows/ci.yml  # CI/CD 流水线（GitHub Actions）
 ├─ docker-compose.yml        # 本地/单机编排
 ├─ .env.example              # 环境变量样例（不含真实密钥）
 ├─ .gitignore
@@ -87,7 +87,7 @@ com.company.project
 ## 9. Git 与协作
 - main 受保护，禁止直接 push；从 main 切 `feature/xxx` 或 `fix/xxx`。
 - Commit 用 Conventional Commits：feat: / fix: / docs: / test: / refactor: / chore:。
-- 合并必经 MR，至少 1 人 approve + CI 全绿。
+- 合并必经 Pull Request，至少 1 人 approve + CI 全绿。
 - 发布打 tag `vX.Y.Z`，tag 触发生产部署。
 
 ## 10. 给 AI 编程助手的额外要求
@@ -96,7 +96,7 @@ com.company.project
 - 改代码必带测试；改接口必更文档。
 - 未经明确要求，不修改 main 分支配置、CI 配置、生产配置。
 - 不确定的约定先问，不要猜。
-- 生成配置时优先复用本仓库 `docker-compose.yml` / `.gitlab-ci.yml` 的既有结构。
+- 生成配置时优先复用本仓库 `docker-compose.yml` / `.github/workflows/ci.yml` 的既有结构。
 
 ## 11. 常用命令
 - 构建：`mvn -f backend/pom.xml clean package -DskipTests`
