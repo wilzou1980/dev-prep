@@ -73,7 +73,7 @@ docker compose logs -f app  # 查看应用日志
 
 ## 接口说明
 
-统一响应格式（成功 `code=0`）：
+统一响应格式（成功 `code=0`；Hello World 示例接口除外，它直接返回纯文本）：
 
 ```json
 { "code": 0, "message": "success", "data": "...", "timestamp": "2026-11-24T19:00:00" }
@@ -81,17 +81,13 @@ docker compose logs -f app  # 查看应用日志
 
 ### Hello World 示例
 
-- `GET /api/v1/hello?name=Harness`
+GET /api/v1/hello` —— 不接受任何参数，响应体只有纯文本 `hello world`（`Content-Type: text/plain`）：
 
-  ```json
-  { "code": 0, "message": "success", "data": "Hello, Harness!", "timestamp": "..." }
-  ```
+```text
+hello world
+```
 
-- `GET /api/v1/hello`（`name` 缺省为 `World`）
-
-  ```json
-  { "code": 0, "message": "success", "data": "Hello, World!", "timestamp": "..." }
-  ```
+即使传入查询参数（如 `?name=Harness`）也会被忽略，输出不变。
 
 Swagger UI：启动后访问 <http://localhost:8080/swagger-ui.html>。
 新增 / 修改接口必须同步更新 `@Operation` / `@Parameter` 注解，并补 MockMvc 测试。

@@ -36,7 +36,7 @@ if errorlevel 1 (
 :run
 echo.
 echo [2/2] 启动应用...
-echo   接口: http://localhost:8080/api/v1/hello?name=Harness
+echo   接口: http://localhost:8080/api/v1/hello
 echo   文档: http://localhost:8080/swagger-ui.html
 echo   停止: 按 Ctrl+C
 echo.
